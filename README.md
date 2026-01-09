@@ -36,3 +36,28 @@ The Kaggle Credit Card Fraud Detection dataset containing 284,807 transactions m
 A variety of models can be deployed but initially an Autoencoder that learns to reconstruct normal (non-fraudulent) transactions. An Autoencoder is a neural network used for unsupervised anomaly detection by learning to compress and reconstruct data. In the context of credit card fraud, the model is trained exclusively on "normal" transactions to learn the standard patterns of legitimate behavior. When the model encounters a fraudulent transaction, it lacks the specialized knowledge to reconstruct it accurately, resulting in a significantly high reconstruction error, which serves as a clear signal to flag the transaction as suspicious. This approach is particularly valuable because it does not rely on a large set of labeled fraud examples, which are often rare in real-world datasets.
 
 ---
+
+# HOW TO RUN
+
+To download the dataset, follow these steps after cloning the repository:
+
+1. Make sure you have a **Kaggle API token** on your computer.  
+   Follow the official Kaggle guide to create and configure your token: [Kaggle API Guide](https://www.kaggle.com/docs/api).
+
+2. Run the dataset script to download the data:
+
+```bash
+python src/credit_card_fraud_analysis/make_dataset.py
+```
+
+3. Run the training script:
+
+```bash
+python src/credit_card_fraud_analysis/train.py
+```
+
+4. Run the evaluate script:
+
+```bash
+python src/credit_card_fraud_analysis/evaluate.py
+```

@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -10,7 +11,6 @@ from torch.utils.data import Dataset
 import torch
 from torch.utils.data import DataLoader, TensorDataset
 from sklearn.preprocessing import StandardScaler
-
 import torch.nn as nn
 import torch.optim as optim
 
@@ -25,36 +25,42 @@ def prep_data(df: pd.DataFrame) -> (np.ndarray, np.ndarray):
     y = df.Class.values
     return X, y
 
-# Define a function to create a scatter plot of our data and labels
-def plot_data(X: np.ndarray, y: np.ndarray):
-    plt.scatter(X[y == 0, 0], X[y == 0, 1], label="Class #0", alpha=0.5, linewidth=0.15)
-    plt.scatter(X[y == 1, 0], X[y == 1, 1], label="Class #1", alpha=0.5, linewidth=0.15, c='r')
-    plt.legend()
-    return plt.show()
 
 def compare_plot(X: np.ndarray, y: np.ndarray, X_resampled: np.ndarray, y_resampled: np.ndarray, method: str):
+    # Ensure the directory exists
+    output_dir = Path("data/reports/figures")
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    plt.figure(figsize=(12, 6))  # Create a new figure to avoid overlapping
+
+    # Plot 1: Original
     plt.subplot(1, 2, 1)
     plt.scatter(X[y == 0, 0], X[y == 0, 1], label="Class #0", alpha=0.5, linewidth=0.15)
     plt.scatter(X[y == 1, 0], X[y == 1, 1], label="Class #1", alpha=0.5, linewidth=0.15, c='r')
     plt.title('Original Set')
+
+    # Plot 2: Resampled
     plt.subplot(1, 2, 2)
-    plt.scatter(X_resampled[y_resampled == 0, 0], X_resampled[y_resampled == 0, 1], label="Class #0", alpha=0.5, linewidth=0.15)
-    plt.scatter(X_resampled[y_resampled == 1, 0], X_resampled[y_resampled == 1, 1], label="Class #1", alpha=0.5, linewidth=0.15, c='r')
-    plt.title(method)
+    plt.scatter(X_resampled[y_resampled == 0, 0], X_resampled[y_resampled == 0, 1], label="Class #0", alpha=0.5,
+                linewidth=0.15)
+    plt.scatter(X_resampled[y_resampled == 1, 0], X_resampled[y_resampled == 1, 1], label="Class #1", alpha=0.5,
+                linewidth=0.15, c='r')
+    plt.title(f'Method: {method}')
+
     plt.legend()
-    plt.show()
+
+    # Dynamic filename with timestamp
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    save_path = output_dir / f"comparison_{method}_{timestamp}.png"
+
+    # Save and close
+    plt.savefig(save_path)
+    plt.close()
+    print(f"Comparison plot saved to: {save_path}")
 
 def generate_train_data(df):
     # Create X and y from the prep_data function
     X, y = prep_data(df)
-    # Plot our data by running our plot data function on X and y
-    plot_data(X, y)
-    # Reproduced using the DataFrame
-    plt.scatter(df.V2[df.Class == 0], df.V3[df.Class == 0], label="Class #0", alpha=0.5, linewidth=0.15)
-    plt.scatter(df.V2[df.Class == 1], df.V3[df.Class == 1], label="Class #1", alpha=0.5, linewidth=0.15, c='r')
-    plt.legend()
-    plt.show()
-    # SMOTE
     print(f'X shape: {X.shape}\ny shape: {y.shape}')
     # Define the resampling method
     method = SMOTE()
@@ -62,9 +68,8 @@ def generate_train_data(df):
     # Create the resampled feature set
     X_resampled, y_resampled = method.fit_resample(X, y)
     # Plot the resampled data
-    plot_data(X_resampled, y_resampled)
-    pd.value_counts(pd.Series(y))
-    pd.value_counts(pd.Series(y_resampled))
+    pd.Series(y).value_counts()
+    pd.Series(y_resampled).value_counts()
     compare_plot(X, y, X_resampled, y_resampled, method='SMOTE')
     X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.3, random_state=0)
     return X_train, X_test, y_train, y_test

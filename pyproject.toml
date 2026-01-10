@@ -1,6 +1,6 @@
 [build-system]
-requires = ["uv_build>=0.9.22,<0.10.0"]
-build-backend = "uv_build"
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "credit_card_fraud_analysis"
@@ -19,7 +19,9 @@ classifiers = [
 ]
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dynamic = ["dependencies"]
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
 
 [tool.ruff]
 line-length = 120

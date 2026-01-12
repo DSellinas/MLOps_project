@@ -16,3 +16,4 @@ kaggle
 hydra-core>=1.3.2
 omegaconf>=2.3.0
 coverage
+pytest==8.3.4

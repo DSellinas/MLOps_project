@@ -3,8 +3,12 @@ from pathlib import Path
 import numpy as np
 import torch
 import typer
-from sklearn.metrics import r2_score, classification_report, confusion_matrix, accuracy_score, roc_auc_score, roc_curve, precision_recall_curve, average_precision_score
-from credit_card_fraud_analysis.data import transform_data, generate_train_data, preprocess_data
+from sklearn.metrics import (
+    confusion_matrix,
+    roc_auc_score,
+)
+
+from credit_card_fraud_analysis.data import preprocess_data
 from credit_card_fraud_analysis.model import Autoencoder
 
 MODELS_DIR = Path(__file__).resolve().parents[2] / "models"

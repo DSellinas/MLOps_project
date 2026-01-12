@@ -1,7 +1,6 @@
 from torch import nn
 
 
-
 class Autoencoder(nn.Module):
     def __init__(self, input_dim: int, hidden_dim: int, dropout: float):
         super(Autoencoder, self).__init__()

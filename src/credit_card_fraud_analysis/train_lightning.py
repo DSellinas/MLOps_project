@@ -1,14 +1,13 @@
 # src/credit_card_fraud_analysis/train_lightning.py
 from pathlib import Path
 
+import pytorch_lightning as pl
 import torch
-from torch.utils.data import DataLoader, TensorDataset
 import typer
 from hydra import compose, initialize
-
-import pytorch_lightning as pl
+from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
-from pytorch_lightning.callbacks import ModelCheckpoint, LearningRateMonitor
+from torch.utils.data import DataLoader, TensorDataset
 
 from credit_card_fraud_analysis.data import preprocess_data
 from credit_card_fraud_analysis.lightning_module import LitAutoEncoder

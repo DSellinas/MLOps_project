@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from hydra import compose, initialize_config_dir
 
 
@@ -12,4 +13,3 @@ def test_hydra_config_load():
     assert cfg.seed is not None
     assert "training" in cfg
     assert "model" in cfg
-

@@ -1,5 +1,6 @@
 import torch
 
+
 def test_autoencoder_forward_shape():
     from credit_card_fraud_analysis.lightning_module import LitAutoEncoder
 
@@ -11,9 +12,8 @@ def test_autoencoder_forward_shape():
         lr=0.001,
         weight_decay=0.0,
     )
-    
-    
+
     x = torch.randn((4, input_dim))  # Batch size of 4
     y = model(x)
-    
+
     assert y.shape == x.shape, "Output shape should match input shape"

@@ -1,7 +1,7 @@
 # src/credit_card_fraud_analysis/lightning_module.py
+import pytorch_lightning as pl
 import torch
 from torch import nn
-import pytorch_lightning as pl
 
 
 class LitAutoEncoder(pl.LightningModule):

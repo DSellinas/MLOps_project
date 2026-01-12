@@ -48,5 +48,6 @@ def evaluate():
         auc = roc_auc_score(y_test, errors)
         print(f"ROC AUC Score: {auc:.4f}")
 
+
 if __name__ == "__main__":
     app()

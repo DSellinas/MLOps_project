@@ -11,7 +11,7 @@ Main goal of this project is to design and evaluate a machine learning system ca
 The project leverages the following technologies and tools:
 
 - **Python**
-- **Uv** - Create virtual environments and manage dependencies 
+- **Uv** - Create virtual environments and manage dependencies
 - **Git** – Version control
 - **scikit-learn** – Machine learning algorithms and preprocessing pipelines
 - **PyTorch** – Neural network implementation
@@ -45,24 +45,27 @@ Experiment tracking is handled using **Weighs & Biases (W&B)**. During training,
 
 # HOW TO RUN
 
+
 1. Setup environmet. Install dependencies:
+
 ```bash
-pip install -r requirements.txt
-```
+pip install -r requirements.txt```
 
 To download the dataset, follow these steps after cloning the repository:
 
-2. Make sure you have a **Kaggle API token** on your computer.  
+2. Make sure you have a **Kaggle API token** on your computer.
    Follow the official Kaggle guide to create and configure your token: [Kaggle API Guide](https://www.kaggle.com/docs/api).
+
 
 3. Run the dataset script to download the data:
 
 ```bash
 PYTHONPATH=src python src/credit_card_fraud_analysis/make_dataset.py
 ```
+
 4. If you want training runs to be logged to the wandb dahsboard:
 
-   `wandb login`
+`wandb login`
  
 
 3. Run the training script using PyTorch and wandb:

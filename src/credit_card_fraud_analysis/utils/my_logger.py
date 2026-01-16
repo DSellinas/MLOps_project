@@ -10,9 +10,10 @@ __all__ = ["logger"]
 # To only show warnings and above in terminal:
 logger.remove()  # remove default handler
 logger.add("logs/app.log", rotation="100 MB", level="DEBUG")  # file
-logger.add(sys.stderr, level="WARNING")  # terminal
+logger.add(sys.stderr, level="DEBUG")  # terminal
 
 # Integrate with Hydra
 import os
 hydra_log_dir = os.getcwd()  # Hydra changes working directory
 logger.add(f"{hydra_log_dir}/app.log", rotation="100 MB")
+
